@@ -1,0 +1,31 @@
+{
+    "staging": {
+        "app_function": "api.app",
+        "aws_region": "eu-west-1",
+        "profile_name": "default",
+        "project_name": "instance-scheduler",
+        "cors": true,
+        "keep_warm": false,
+            "authorizer": {
+                "type": "COGNITO_USER_POOLS",
+                "provider_arns": [
+                    "arn:aws:cognito-idp:eu-west-1:117698054570:userpool/eu-west-1_aphRYjOaB"
+                ]
+            },
+        "s3_bucket": "zappa-instance-scheduler-staging-0gl0tnjcf",    
+        "runtime": "python3.8",
+        "attach_policy":"instance-scheduler-staging-policy.json",
+        "aws_environment_variables": {"TABLE_NAME": "instance-scheduler",
+                                  "REGION_NAME": "eu-west-1",
+                                  "KMS_KEY_ID": "cc6d14eb-1ca6-4b02-b862-7e30f48b4bbd",
+                                  "EC2_LIMIT": "5",
+                                  "KEYS_LIMIT": "5",
+                                  "SOURCE_EMAIL": "noreply@gozeit.com",
+                                  "USERPOOLID": "eu-west-1_aphRYjOaB",
+                                  "COGNITOR_CLIENTID": "5jgkf9l7p7on2uq4g1v7fffa55"
+
+
+         }
+
+    }
+}

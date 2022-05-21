@@ -1,0 +1,8 @@
+Flask-JWT-Extended==4.4.0
+PyJWT==1.7.1
+Flask==2.1.0
+boto3==1.23.0
+cryptography==37.0.2
+Flask-Cors==3.0.10
+simplejson==3.17.0
+zappa==0.54.1
