@@ -82,6 +82,8 @@ handler                        = "app.lambda_handler"
 runtime                        = "python3.8"
 depends_on                     = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
 source_code_hash               = data.archive_file.zip_the_python_code.output_base64sha256
+timeout                        = 30
+
 environment {
     variables = {
       "SOURCE_EMAIL" = "noreply@gozeit.com"
