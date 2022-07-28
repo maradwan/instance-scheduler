@@ -1,34 +1,40 @@
 (function ($) {
-  var authToken;
-  Wild.authToken
-    .then(function setAuthToken(token) {
-      if (token) {
-        authToken = token;
-      } else {
-        window.location.href = "/index.html";
+
+  const queryString = window.location.hash.substring(1) 
+  const splittedQuery = queryString.split("&") 
+  var query = splittedQuery.reduce((result, current) => {    
+  const splitCurrent = current.split("=")
+  result[splitCurrent[0]] = splitCurrent[1]
+  return result
+   }, {})  
+
+  if (query.id_token) { 
+    var authToken = query.id_token;
+    sessionStorage.setItem("authToken", query.id_token);
+  
+  } else {
+    authToken = sessionStorage.getItem("authToken");
+
+  }
+
+    // Register click handler for #request button
+    $(function onDocReady() {
+      $("#signOut").click(function () {
+        //Wild.signOut();
+        sessionStorage.removeItem("authToken");
+        //alert("You have been signed out.");
+        window.location = "index.html";
+      });
+    });
+  
+    $(document).ajaxError(function (event, xhr, settings, error) {
+      //when there is an AJAX request and the user is not authenticated -> redirect to the login page
+      if (xhr.status == 403 || xhr.status == 401) {
+        // 403 - Forbidden
+        window.location = "index.html";
       }
-    })
-    .catch(function handleTokenError(error) {
-      alert(error);
-      window.location.href = "/index.html";
     });
 
-  // Register click handler for #request button
-  $(function onDocReady() {
-    $("#signOut").click(function () {
-      Wild.signOut();
-      //alert("You have been signed out.");
-      window.location = "signin.html";
-    });
-  });
-
-  $(document).ajaxError(function (event, xhr, settings, error) {
-    //when there is an AJAX request and the user is not authenticated -> redirect to the login page
-    if (xhr.status == 403 || xhr.status == 401) {
-      // 403 - Forbidden
-      window.location = "signin.html";
-    }
-  });
 
   $(function () {
     var $title = $("#title");
@@ -128,7 +134,27 @@
         },
         contentType: "application/json",
         success: function (data) {
-            // console.log(data.Items)
+             //console.log(data.Items)
+             
+            // const queryString = window.location.hash;
+            // console.log(queryString.split("=")[1]);
+
+              const queryString = window.location.hash.substring(1) 
+              const splittedQuery = queryString.split("&") 
+              const query = splittedQuery.reduce((result, current) => {    
+              const splitCurrent = current.split("=")
+              result[splitCurrent[0]] = splitCurrent[1]
+              return result
+               }, {})  
+               console.log(query.id_token)  
+             //const urlParams = new URLSearchParams(queryString);
+             //const id_token = urlParams.get('id_token')
+             //console.log(id_token);
+
+
+            
+
+             console.log('HELLO')
 
           $.each(data.Items, function (i, created) {
             gozeit_data += `<tr>

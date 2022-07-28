@@ -1,22 +1,12 @@
 (function ($) {
-    var authToken;
-    Wild.authToken.then(function setAuthToken(token) {
-        if (token) {
-            authToken = token;
-        } else {
-            window.location.href = '/index.html';
-        }
-    }).catch(function handleTokenError(error) {
-        alert(error);
-        window.location.href = '/index.html';
-    });
+    var authToken = sessionStorage.getItem("authToken");
 
 	     
     // Register click handler for #request button
     $(function onDocReady() {
         $('#signOut').click(function() {
-            Wild.signOut();
-            window.location = "signin.html";
+          sessionStorage.removeItem("authToken");
+          window.location = "index.html";
         });
         
     });
@@ -24,7 +14,7 @@
     $(document).ajaxError(function (event, xhr, settings, error) {
       //when there is an AJAX request and the user is not authenticated -> redirect to the login page
       if (xhr.status == 403 || xhr.status == 401) { // 403 - Forbidden
-          window.location = 'signin.html';
+          window.location = 'index.html';
       }
   });
 
