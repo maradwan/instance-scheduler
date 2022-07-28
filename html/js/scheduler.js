@@ -135,26 +135,6 @@
         contentType: "application/json",
         success: function (data) {
              //console.log(data.Items)
-             
-            // const queryString = window.location.hash;
-            // console.log(queryString.split("=")[1]);
-
-              const queryString = window.location.hash.substring(1) 
-              const splittedQuery = queryString.split("&") 
-              const query = splittedQuery.reduce((result, current) => {    
-              const splitCurrent = current.split("=")
-              result[splitCurrent[0]] = splitCurrent[1]
-              return result
-               }, {})  
-               console.log(query.id_token)  
-             //const urlParams = new URLSearchParams(queryString);
-             //const id_token = urlParams.get('id_token')
-             //console.log(id_token);
-
-
-            
-
-             console.log('HELLO')
 
           $.each(data.Items, function (i, created) {
             gozeit_data += `<tr>
